@@ -26,27 +26,44 @@ namespace Teams_EF_ModelFirst
             using (conexion)
             {
 
-                TeamsInitialize(conexion);
-                conexion.SaveChanges();
+                //TeamsInitialize(conexion);
+                //conexion.SaveChanges();
+
+
+                //Show All Teams
+                Console.WriteLine("Show All Teams");
                 var showteams = ShowTeam(conexion);
                 showteams.ForEach(a =>
                 {
                     Console.WriteLine("Name :{0} \t Champions luegue nº:{1}\t Leugue nº:{2} \t statum Id {3}", a.Name, a. ChampionsLeagueNum, a.LeagueNum, a.Stadium.Id);
                 });
+                Console.ReadLine();
 
+                //Show Staduims
+                Console.WriteLine("Show Staduims");
                 var showsataduims = ShowStadium(conexion);
                 showsataduims.ForEach(a =>
                 {
                     Console.WriteLine("Id : {3} \tName :{0} \t capacity:{1}\t City nº:{2}", a.Name, a.Capacity, a.Capacity, a.Id);
                 });
-                var findteam = FindTeam(conexion, "Equipo 1");
+
+                //Find Team
+                Console.WriteLine();
+                Console.WriteLine("Find Team 'Equipo 1', 'Equipo 2' , 'Equipo 2' ...");
+                var TeamName = Console.ReadLine();
+                var findteam = FindTeam(conexion, TeamName);
 
                 Console.WriteLine("Name :{0} \t Champions luegue nº:{1}\t Leugue nº:{2} \t statum Id {3}", findteam.Name, findteam.ChampionsLeagueNum, findteam.LeagueNum, findteam.Stadium.Id);
-                var findteambyStd = FindTeamsByStadium(conexion, "Equipo 1");
+                Console.ReadLine();
+
+                //Find Team by Staduim
+                Console.WriteLine("Find Team by Staduim 'estadio 3'");
+                var findteambyStd = FindTeamsByStadium(conexion, "estadio 3");
                 findteambyStd.ForEach(a =>
                 {
-                    Console.WriteLine("Name :{0} \t Champions luegue nº:{1}\t Leugue nº:{2} \t statum Id {3}", a.Name, a.ChampionsLeagueNum, a.LeagueNum, a.Stadium.Id);
+                    Console.WriteLine("Name :{0} \t Champions luegue nº:{1}\t Leugue nº:{2} \t statum Id {3} \t Staduim Name:{4}", a.Name, a.ChampionsLeagueNum, a.LeagueNum, a.Stadium.Id, a.Stadium.Name);
                 });
+                Console.ReadLine();
 
             }
 
@@ -99,10 +116,18 @@ namespace Teams_EF_ModelFirst
             var findTeam = cnx.Teams.Where(a => a.Name == name).FirstOrDefault();
             return findTeam;
         }
-        public static IQueryable<Team> FindTeamsByStadium(Model1Container cnx, string namestd)
+        public static List<Team> FindTeamsByStadium(Model1Container cnx, string namestd)
         {
-            var findTeam = cnx.Teams.Where(a => a.Stadium.Name == namestd);
-            return findTeam;
+            return cnx.Teams.Where(a => a.Stadium.Name == namestd).ToList();
+            
+            //if (findTeam.Count() > 1)
+            //{
+            //    return findTeam.ToList();
+            //}
+            //else
+            //{
+            //    return findTeam;
+            //}
         }
         
     }
