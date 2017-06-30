@@ -1,4 +1,13 @@
-﻿using System;
+﻿////////////////////////////////////////
+//                                    //
+//  Actividad 2 del Examen de Azure   // 
+//  Author:  Khalifa Boulbayem        //
+//  Github: Kblbym                    //
+//  Linkedin: khalifaboulbayem        //
+//  Twitter: @khalifablbym            //
+//                                    //
+////////////////////////////////////////
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
